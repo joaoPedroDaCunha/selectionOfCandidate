@@ -7,8 +7,9 @@ public class Candidete {
 
     protected static Double salaryBase = 2000.0;
 
-    static String selectedCandidates [];
-    static double selectedSalary [];
+    public static String [] selectedCandidates =new String[5];
+    public static double [] selectedSalary =new double[5];
+
 
     public static void selectionOfCandidates(){
         String [] candidates = {"marcio","jose","marcos","felipe","monica","cebolina","cascão","magali","augusto","paulo"};
@@ -20,9 +21,9 @@ public class Candidete {
             double salaryWanted = valueWanted();
             System.out.println("O candidato :"+candidate+" Solicitou este valor de salario :"+salaryWanted);
             if(salaryBase >= salaryWanted  ){
-                System.out.println("O candidato :"+candidates+"foi selecionando para vaga");
+                System.out.println("O candidato :"+candidate+" foi selecionando para vaga");
                 selectioncandidates ++;
-                selectedCandidates [count] = candidate;
+                selectedCandidates [count] = candidates[currentCandidate];
                 selectedSalary [count] = salaryWanted;
                 count ++;
             }
@@ -32,14 +33,14 @@ public class Candidete {
 
     public static void print(){
         System.out.println("Imprimindo a lista de candidatos selecionandos :");
-        for(int i=0;i<=selectedCandidates.length;i++){
+        for(int i=0;i<selectedCandidates.length;i++){
             System.out.println(selectedCandidates[i]);
         }
     }
 
     public static void analyzeCandidate(){
         
-        for(int i=0;i <= selectedCandidates.length;i++){
+        for(int i=0;i < selectedCandidates.length;i++){
             if(salaryBase < selectedSalary[i] ){
                 System.out.println("Ligar para o candidato :"+selectedCandidates[i]);
             }else if(salaryBase == selectedSalary[i]){
@@ -50,25 +51,29 @@ public class Candidete {
         }
 
     }
-    static public void getInTouch(String candidate){
-        int attemptsMade = 1;
-        boolean keepTrying = true;
-        boolean answered = false;
-        do {
-            answered = answer();
-            keepTrying = !answered;
-            if (keepTrying) {
-                attemptsMade ++;
+    static public void getInTouch(){
+        
+        for(int i=0;i<selectedCandidates.length;i++){
+            int attemptsMade = 1;
+            boolean keepTrying = true;
+            boolean answered = false;
+            do {
+                answered = answer();
+                keepTrying = !answered;
+                if (keepTrying) {
+                    attemptsMade ++;
+                }else{
+                    System.out.println("Contato realizado com sucesso");
+                }
+            }while(answered == false && attemptsMade <= 3);
+    
+            if (answered) {
+                System.out.println("Conseguimos contato com "+selectedCandidates[i]+" Na "+attemptsMade+" tentativa realizada");
             }else{
-                System.out.println("Contato realizado com sucesso");
+                System.out.println("Não Conseguimos contato com "+selectedCandidates[i]+", número maximo de tentativas realizadas");
             }
-        }while(answered == false && attemptsMade <= 3);
-
-        if (answered) {
-            System.out.println("Conseguimos contato com "+candidate+" Na "+attemptsMade+" tentativa realizada");
-        }else{
-            System.out.println("Não Conseguimos contato com "+candidate+", número maximo de tentativas realizadas");
         }
+
     }
 
    
